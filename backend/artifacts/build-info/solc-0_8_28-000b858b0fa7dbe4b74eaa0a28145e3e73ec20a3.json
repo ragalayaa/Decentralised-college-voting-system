@@ -1,0 +1,43 @@
+{
+  "_format": "hh3-sol-build-info-1",
+  "id": "solc-0_8_28-000b858b0fa7dbe4b74eaa0a28145e3e73ec20a3",
+  "solcVersion": "0.8.28",
+  "solcLongVersion": "0.8.28+commit.7893614a",
+  "userSourceNameMap": {
+    "contracts/Counter.sol": "project/contracts/Counter.sol",
+    "contracts/Voting.sol": "project/contracts/Voting.sol"
+  },
+  "input": {
+    "language": "Solidity",
+    "settings": {
+      "evmVersion": "cancun",
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "outputSelection": {
+        "*": {
+          "": [
+            "ast"
+          ],
+          "*": [
+            "abi",
+            "evm.bytecode",
+            "evm.deployedBytecode",
+            "evm.methodIdentifiers",
+            "metadata"
+          ]
+        }
+      },
+      "remappings": []
+    },
+    "sources": {
+      "project/contracts/Counter.sol": {
+        "content": "// SPDX-License-Identifier: UNLICENSED\npragma solidity ^0.8.28;\n\ncontract Counter {\n  uint public x;\n\n  event Increment(uint by);\n\n  function inc() public {\n    x++;\n    emit Increment(1);\n  }\n\n  function incBy(uint by) public {\n    require(by > 0, \"incBy: increment should be positive\");\n    x += by;\n    emit Increment(by);\n  }\n}\n"
+      },
+      "project/contracts/Voting.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.0;\r\n\r\ncontract Voting {\r\n    struct Candidate {\r\n        uint id;\r\n        string name;\r\n        uint voteCount;\r\n    }\r\n\r\n    mapping(uint => Candidate) public candidates;\r\n    mapping(address => bool) public hasVoted;\r\n    uint public candidatesCount;\r\n\r\n    event Voted(address voter, uint candidateId);\r\n\r\n    function addCandidate(string memory _name) public {\r\n        candidatesCount++;\r\n        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);\r\n    }\r\n\r\n    function vote(uint _candidateId) public {\r\n        require(!hasVoted[msg.sender], \"Already voted.\");\r\n        require(_candidateId > 0 && _candidateId <= candidatesCount, \"Invalid candidate ID\");\r\n\r\n        candidates[_candidateId].voteCount++;\r\n        hasVoted[msg.sender] = true;\r\n\r\n        emit Voted(msg.sender, _candidateId);\r\n    }\r\n\r\n    function getVotes(uint _candidateId) public view returns (uint) {\r\n        return candidates[_candidateId].voteCount;\r\n    }\r\n}\r\n"
+      }
+    }
+  }
+}

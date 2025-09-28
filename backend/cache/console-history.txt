@@ -1,0 +1,11 @@
+.exit
+const { ethers } = await import("hardhat");
+.exit
+(await ethers.provider.getBlockNumber()).toString();
+const { ethers } = await import("hardhat");
+.exit
+(await ethers.provider.getBlockNumber()).toString();
+const { ethers } = await import("hardhat");
+import { ethers } from "hardhat";
+const { ethers } = require("hardhat");
+(await ethers.provider.getBlockNumber()).toString()
